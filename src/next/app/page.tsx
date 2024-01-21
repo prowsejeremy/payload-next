@@ -1,7 +1,7 @@
 import React from 'react'
 import { notFound } from 'next/navigation'
 
-import {PageType} from './types'
+import {Page as PageType} from './payload-types'
 
 import { fetchDoc } from './_api/fetchDoc'
 import PageTemplate from './_templates/page'
@@ -11,12 +11,12 @@ export const revalidate = 300;
 
 export default async function Page() {
 
-  let page: PageType | null = null
+  let pageData: PageType | null = null
 
   const slug = 'home'
 
   try {
-    page = await fetchDoc<PageType>({
+    pageData = await fetchDoc<PageType>({
       collection: 'pages',
       slug
     })
@@ -24,14 +24,14 @@ export default async function Page() {
     console.log('FETCH error', error)
   }
 
-  if (!page && slug === 'home') {
-    page = {title: "Create your first page in the CMS", slug: 'home'}
+  if (!pageData && slug === 'home') {
+    pageData = {title: 'Create your first page in the CMS', id: '1', slug: 'home', updatedAt: '', createdAt: ''}
   }
 
-  if (!page) {
+  if (!pageData) {
     return notFound()
   }
 
-  return <PageTemplate page={page} />
+  return <PageTemplate page={pageData} />
 
 }

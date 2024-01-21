@@ -6,8 +6,12 @@ import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { buildConfig } from 'payload/config'
 
+// Collections
 import Users from './collections/Users'
 import Pages from './collections/Pages'
+
+// Globals
+import Nav from './globals/Nav'
 
 export default buildConfig({
   admin: {
@@ -16,6 +20,7 @@ export default buildConfig({
   },
   editor: slateEditor({}),
   collections: [Users, Pages],
+  globals: [Nav],
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),

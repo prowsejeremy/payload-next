@@ -1,6 +1,6 @@
 export const PAGES = `
-  query Pages {
-    Pages(limit: 300)  {
+  query Page($draft: Boolean) {
+    Pages(limit: 300, draft: $draft)  {
       docs {
         slug
       }
@@ -9,8 +9,8 @@ export const PAGES = `
 `
 
 export const PAGE = `
-  query Page($slug: String) {
-    Pages(where: { slug: { equals: $slug }}, limit: 1) {
+  query Page($slug: String, $draft: Boolean) {
+    Pages(where: { slug: { equals: $slug }}, limit: 1, draft: $draft) {
       docs {
         slug
         title
