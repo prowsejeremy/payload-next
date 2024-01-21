@@ -18,8 +18,6 @@ services:
     container_name: payload
     depends_on:
       - mongo
-    ports:
-      - 5000:5000
     build:
       context: ../src/payload
       dockerfile: ../../docker/payload.Dockerfile
