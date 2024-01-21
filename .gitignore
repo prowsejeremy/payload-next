@@ -10,5 +10,8 @@ node_modules
 # Environment var files
 .env
 
+# Database files
+db
+
 # Other Misc files / folders
 .DS_Store
