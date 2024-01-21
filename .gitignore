@@ -11,7 +11,7 @@ node_modules
 .env
 
 # Database files
-db
+/*/db
 
 # Other Misc files / folders
 .DS_Store
