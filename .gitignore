@@ -1,6 +1,14 @@
+# Build folders
 build
 dist
-/media
+.next
 node_modules
-.DS_Store
+
+# Upload folders
+/media
+
+# Environment var files
 .env
+
+# Other Misc files / folders
+.DS_Store
