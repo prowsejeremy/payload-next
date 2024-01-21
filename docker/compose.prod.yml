@@ -1,0 +1,70 @@
+version: '3'
+name: payload-next
+
+services:
+
+  mongo:
+    container_name: mongo
+    ports:
+      - 27017:27017
+    build:
+      dockerfile: mongo.Dockerfile
+    volumes:
+      - ./db:/data/db:rw
+    networks:
+      - app_network
+
+  payload:
+    container_name: payload
+    depends_on:
+      - mongo
+    ports:
+      - 5000:5000
+    build:
+      context: ../src/payload
+      dockerfile: ../../docker/payload.Dockerfile
+    volumes:
+      - ./:/app
+    env_file:
+      - ../.env
+      - ../src/payload/.env
+    networks:
+      - app_network
+
+  next:
+    container_name: next
+    build:
+      context: ../src/next
+      dockerfile: ../../docker/next.Dockerfile
+    volumes:
+      - ./:/app
+    env_file:
+      - ../.env
+      - ../src/next/.env
+    networks:
+      - app_network
+
+  nginx:
+    container_name: nginx
+    ports:
+      - 80:80
+    depends_on:
+      - payload
+      - next
+    build:
+      dockerfile: nginx.Dockerfile
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+      - NEXT_DOCKER_CONTAINER=next
+      - PAYLOAD_DOCKER_CONTAINER=payload
+    env_file:
+      - ../.env
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  data:

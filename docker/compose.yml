@@ -1,0 +1,70 @@
+version: '3'
+name: payload-next-dev
+
+services:
+
+  mongo:
+    container_name: mongo
+    ports:
+      - 27017:27017
+    build:
+      dockerfile: mongo.Dockerfile
+    volumes:
+      - ./db:/data/db:rw
+    networks:
+      - app_network
+
+  payload:
+    container_name: payload
+    image: node:20-alpine
+    volumes:
+      - ../src/payload:/home/node/app/payload
+    working_dir: /home/node/app/payload
+    command: sh -c "yarn install && yarn dev"
+    depends_on:
+      - mongo
+    env_file:
+      - ../.env
+      - ../src/payload/.env
+    networks:
+      - app_network
+
+  next:
+    container_name: next
+    image: node:20-alpine
+    volumes:
+      - ../src/next:/home/node/app/next
+    working_dir: /home/node/app/next
+    command: sh -c "yarn install && yarn dev"
+    depends_on:
+      - mongo
+    env_file:
+      - ../.env
+      - ../src/next/.env
+    networks:
+      - app_network
+
+  nginx:
+    container_name: nginx
+    ports:
+      - 80:80
+    depends_on:
+      - payload
+      - next
+    build:
+      dockerfile: nginx.Dockerfile
+    environment:
+      - NGINX_ENVSUBST_OUTPUT_DIR=/etc/nginx
+      - NEXT_DOCKER_CONTAINER=next
+      - PAYLOAD_DOCKER_CONTAINER=payload
+    env_file:
+      - ../.env
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  data:
