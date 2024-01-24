@@ -2,16 +2,16 @@ import { CollectionConfig } from 'payload/types'
 import { slateEditor } from '@payloadcms/richtext-slate'
 import { slugField } from '../../fields/slug'
 import { admins } from '../../access/admins'
-import { adminsOrPublished } from '../../access/adminsOrPublished'
+import { hasSecretOrPublished } from '../../access/hasSecretOrPublished'
 
 const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug'],
-    preview: doc => {
-      return `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/api/preview?url=${encodeURIComponent(
-        `${process.env.PAYLOAD_PUBLIC_SERVER_URL}/${doc.slug !== 'home' ? doc.slug : ''}`,
+    preview: (doc) => {
+      return `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/api/preview?url=${encodeURIComponent(
+        `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/${doc.slug}`,
       )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
     },
   },
@@ -19,7 +19,7 @@ const Pages: CollectionConfig = {
     drafts: true,
   },
   access: {
-    read: adminsOrPublished,
+    read: hasSecretOrPublished,
     update: admins,
     create: admins,
     delete: admins,

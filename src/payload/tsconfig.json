@@ -9,8 +9,10 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "jsx": "react",
+    "baseUrl": ".",
     "paths": {
-      "payload/generated-types": ["./src/payload-types.ts"]
+      "payload/generated-types": ["./src/payload-types.ts"],
+      "@/*": ["src/*"]
     }
   },
   "include": ["src"],

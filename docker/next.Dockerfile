@@ -4,7 +4,7 @@ FROM base AS deps
 RUN apk add --no-cache libc6-compat
 
 WORKDIR /home/node/app/next
-COPY package*.json yarn.lock ./ 
+COPY package.json yarn.lock ./ 
 
 RUN yarn install
 

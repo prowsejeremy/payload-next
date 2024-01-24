@@ -4,6 +4,8 @@ import { Nav as NavType, Page as PageType } from "@/payload-types"
 // Components
 import NavBar from "@/_components/NavBar"
 import RichText from "@/_components/RichText"
+import PreviewBar from "@/_components/PreviewBar"
+import { Gutter } from "@/_components/Gutter"
 
 const PageTemplate = async ({page}:{page:PageType}) => {
 
@@ -22,9 +24,12 @@ const PageTemplate = async ({page}:{page:PageType}) => {
 
   return (
     <>
+      <PreviewBar />
       { navData?.items && <NavBar nav={navData} /> }
-      <h1>{title}</h1>
-      <RichText content={content} />
+      <Gutter>
+        <h1>{title}</h1>
+        <RichText content={content} />
+      </Gutter>
     </>
   )
 }

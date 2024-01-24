@@ -25,7 +25,6 @@ services:
       - mongo
     env_file:
       - ../.env
-      - ../src/payload/.env
     networks:
       - app_network
 
@@ -40,7 +39,6 @@ services:
       - mongo
     env_file:
       - ../.env
-      - ../src/next/.env
     networks:
       - app_network
 

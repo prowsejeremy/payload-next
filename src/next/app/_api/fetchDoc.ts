@@ -21,25 +21,27 @@ export const fetchDoc = async <T>(args: {
 
   if (!queryMap[collection]) throw new Error(`Collection ${collection} not found`)
 
-  let token: RequestCookie | undefined
+  // let token: RequestCookie | undefined
 
-  if (draft) {
-    const { cookies } = await import('next/headers')
-    token = cookies().get(payloadToken)
-  }
+  // if (draft) {
+  //   const { cookies } = await import('next/headers')
+  //   token = cookies().get(payloadToken)
+  // }
 
   const doc: T = await fetch(`${GRAPHQL_API_URL}/api/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
+      // ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
     },
     cache: 'no-store',
     next: { tags: [`${collection}_${slug}`] },
     body: JSON.stringify({
+      ...( draft ? {secret: process.env.DRAFT_SECRET} : {}),
       query: queryMap[collection].query,
       variables: {
         slug,
+        draft
       },
     }),
   })

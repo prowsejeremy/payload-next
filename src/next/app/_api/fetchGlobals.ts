@@ -3,7 +3,7 @@ import { NAV_QUERY } from '../_graphql/globals'
 import { GRAPHQL_API_URL } from './shared'
 
 export async function fetchNav(): Promise<NavType> {
-  if (!GRAPHQL_API_URL) throw new Error('NEXT_PUBLIC_SERVER_URL not found')
+  if (!GRAPHQL_API_URL) throw new Error('GRAPHQL_API_URL not found')
 
   const nav = await fetch(`${GRAPHQL_API_URL}/api/graphql`, {
     method: 'POST',

@@ -1,5 +1,7 @@
 import { GlobalConfig } from 'payload/types'
 
+import link from '../fields/link'
+
 const Nav: GlobalConfig = {
   slug: 'nav',
   access: {
@@ -11,12 +13,9 @@ const Nav: GlobalConfig = {
       type: 'array',
       required: true,
       fields: [
-        {
-          name: 'page',
-          type: 'relationship',
-          relationTo: 'pages',
-          required: true,
-        },
+        link({
+          appearances: false,
+        }),
       ],
     },
   ],

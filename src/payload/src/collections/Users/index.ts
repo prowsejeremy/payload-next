@@ -4,13 +4,23 @@ import { anyone } from '../../access/anyone'
 import adminsAndUser from './access/adminsAndUser'
 import { ensureFirstUserIsAdmin } from './hooks/ensureFirstUserIsAdmin'
 import { checkRole } from './checkRole'
+// import { afterLoginHook } from './hooks/afterLogin'
 
 const Users: CollectionConfig = {
   slug: 'users',
-  auth: true,
+  auth: {
+    tokenExpiration: 28800, // 8 hours
+    cookies: {
+      sameSite: 'none',
+      secure: true
+    },
+  },
   admin: {
     useAsTitle: 'name',
     defaultColumns: ['name', 'email'],
+  },
+  hooks: {
+    // afterLogin: [afterLoginHook]
   },
   access: {
     read: adminsAndUser,
@@ -40,7 +50,7 @@ const Users: CollectionConfig = {
         },
       ],
       hooks: {
-        beforeChange: [ensureFirstUserIsAdmin],
+        beforeChange: [ensureFirstUserIsAdmin]
       },
       access: {
         read: admins,

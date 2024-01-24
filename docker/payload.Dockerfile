@@ -3,7 +3,7 @@ FROM node:20-alpine as base
 FROM base as builder
 
 WORKDIR /home/node/app/payload
-COPY package*.json yarn.lock ./
+COPY package.json yarn.lock ./
 
 COPY . .
 RUN yarn install

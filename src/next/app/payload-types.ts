@@ -74,7 +74,16 @@ export interface PayloadMigration {
 export interface Nav {
   id: string;
   items: {
-    page: string | Page;
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?: {
+        relationTo: 'pages';
+        value: string | Page;
+      } | null;
+      url?: string | null;
+      label: string;
+    };
     id?: string | null;
   }[];
   updatedAt?: string | null;

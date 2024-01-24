@@ -1,0 +1,17 @@
+.previewBar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: middle;
+  background: var(--color-grayscale-0);
+  padding: var(--base);
+  color: var(--color-grayscale-255);
+}
+
+.previewBar a {
+  color: inherit;
+
+  &:hover {
+    color: var(--color-base-0);
+  }
+}

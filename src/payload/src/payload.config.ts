@@ -14,14 +14,35 @@ import Pages from './collections/Pages'
 import Nav from './globals/Nav'
 
 export default buildConfig({
+  globals: [Nav],
+  collections: [Users, Pages],
+  
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
+    // webpack: (config) => ({
+    //   ...config,
+    //   resolve: {
+    //     ...config.resolve,
+    //     alias: {
+    //       ...config.resolve.alias,
+    //       "@": path.resolve(__dirname)
+    //     }
+    //   }
+    // }),
   },
   editor: slateEditor({}),
-  collections: [Users, Pages],
-  globals: [Nav],
-  serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL,
+  serverURL: process.env.PAYLOAD_PUBLIC_PAYLOAD_URL,
+  
+  cors: [
+    process.env.PAYLOAD_PUBLIC_PAYLOAD_URL || '',
+    process.env.PAYLOAD_PUBLIC_NEXT_URL || ''
+  ].filter(Boolean),
+  csrf: [
+    process.env.PAYLOAD_PUBLIC_PAYLOAD_URL || '',
+    process.env.PAYLOAD_PUBLIC_NEXT_URL || ''
+  ].filter(Boolean),
+  
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
@@ -29,6 +50,7 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [payloadCloud()],
+  
   db: mongooseAdapter({
     url: process.env.DATABASE_URI,
   }),

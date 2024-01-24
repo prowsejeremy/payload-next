@@ -2,10 +2,12 @@
 
 import React from "react";
 
-import { Page as PageType, Nav as NavType } from "@/payload-types";
-import Link from "next/link";
+import { Nav as NavType } from "@/payload-types";
 
-import classes from "./index.module.css"
+import {CMSLink} from "@/_components/Link"
+import { Gutter } from "@/_components/Gutter";
+
+import classes from "./index.module.scss"
 
 const NavBar: React.FC<{ nav: NavType }> = ({nav}) => {
 
@@ -13,12 +15,13 @@ const NavBar: React.FC<{ nav: NavType }> = ({nav}) => {
 
   return !navItems ? null : (
     <nav className={classes.nav}>
-      {navItems.map((item, key) => {
-        const pageDetails = item.page as PageType
-        return (
-          <Link key={key} href={`/${pageDetails.slug}`}>{pageDetails.title}</Link>
-        )
-      })}
+      <Gutter>
+        <div className={classes.wrap}>
+          {navItems.map(({link}, key) => {
+            return <CMSLink key={key} {...link} />
+          })}
+        </div>
+      </Gutter>
     </nav>
   )
 }
