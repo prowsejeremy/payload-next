@@ -8,8 +8,6 @@ export async function GET(request: NextRequest): Promise<Response> {
   const authHeader = request.headers.get('authorization')
   const token = authHeader?.replace('JWT ', '')
 
-  console.log('token', token)
-
   if (token) {
     cookies().set('payload-token', token, {
       httpOnly: true,

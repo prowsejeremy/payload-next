@@ -1,4 +1,4 @@
-import { cookies, draftMode } from 'next/headers'
+import { draftMode } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { payloadToken } from '../../_api/token'
@@ -17,38 +17,34 @@ export async function GET(
   },
 ): Promise<Response> {
 
-  console.log('req', req.cookies)
-
   const token = req.cookies.get(payloadToken)?.value
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
   const secret = searchParams.get('secret')
-  // const savedToken = cookies().get('payload-token')
 
   console.log('token', token)
-  // console.log('cookies().getAll()', cookies().getAll())
 
   if (!url) {
     return new Response('No URL provided', { status: 404 })
   }
 
-  // if (!token && !savedToken) {
-  //   new Response('You are not allowed to preview this page', { status: 403 })
-  // }
+  if (!token) {
+    new Response('You are not allowed to preview this page', { status: 403 })
+  }
 
-  // // validate the Payload token
-  // const userReq = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_INTERNAL_URL}/api/users/me`, {
-  //   headers: {
-  //     Authorization: `JWT ${token}`,
-  //   }
-  // })
+  // validate the Payload token
+  const userReq = await fetch(`${process.env.NEXT_PUBLIC_PAYLOAD_INTERNAL_URL}/api/users/me`, {
+    headers: {
+      Authorization: `JWT ${token}`,
+    }
+  })
 
-  // const userRes = await userReq.json()
+  const userRes = await userReq.json()
 
-  // if (!userReq.ok || !userRes?.user) {
-  //   draftMode().disable()
-  //   return new Response('You are not allowed to preview this page', { status: 403 })
-  // }
+  if (!userReq.ok || !userRes?.user) {
+    draftMode().disable()
+    return new Response('You are not allowed to preview this page', { status: 403 })
+  }
 
   if (secret !== process.env.DRAFT_SECRET) {
     return new Response('Invalid token', { status: 401 })
