@@ -2,6 +2,10 @@
 
 A blank template, readme details to come.
 
+## Generating SSL Certs for local dev
+
+https://github.com/dakshshah96/local-cert-generator/
+
 ## Development
 
 1. Install docker & docker compose on your local environment

@@ -8,22 +8,24 @@ export const revalidate = 0
 
 export async function GET(
   req: Request
-  // & {
-  //   cookies: {
-  //     get: (name: string) => {
-  //       value: string
-  //     }
-  //   }
-  // },
+  & {
+    cookies: {
+      get: (name: string) => {
+        value: string
+      }
+    }
+  },
 ): Promise<Response> {
 
-  // const token = req.cookies.get(payloadToken)?.value
+  console.log('req', req.cookies)
+
+  const token = req.cookies.get(payloadToken)?.value
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
   const secret = searchParams.get('secret')
   // const savedToken = cookies().get('payload-token')
 
-  // console.log('savedToken', savedToken)
+  console.log('token', token)
   // console.log('cookies().getAll()', cookies().getAll())
 
   if (!url) {
