@@ -1,6 +1,10 @@
 import { CollectionConfig } from 'payload/types'
-import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
+
+// Components
 import { slugField } from '../../fields/slug'
+
+// Auth
 import { admins } from '../../access/admins'
 import { hasSecretOrPublished } from '../../access/hasSecretOrPublished'
 
@@ -34,12 +38,7 @@ const Pages: CollectionConfig = {
       type: 'richText',
       name: 'content',
       label: 'Content',
-      editor: slateEditor({
-        admin: {
-          elements: ['h2', 'h3', 'h4', 'h5', 'ul', 'ol', 'link'],
-          leaves: ['bold', 'italic', 'underline'],
-        },
-      }),
+      editor: lexicalEditor({})
     },
     slugField()
   ]

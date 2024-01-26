@@ -28,7 +28,7 @@ const PageTemplate = async ({page}:{page:PageType}) => {
       { navData?.items && <NavBar nav={navData} /> }
       <Gutter>
         <h1>{title}</h1>
-        <RichText content={content} />
+        <RichText content={content?.root} />
       </Gutter>
     </>
   )

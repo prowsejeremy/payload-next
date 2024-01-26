@@ -7,47 +7,54 @@ import { Text } from 'slate'
 type Children = Leaf[]
 
 type Leaf = {
+  children?: Children,
+  direction: string,
+  format: number,
+  tag: string,
+  indent: number,
   type: string
-  value?: {
-    url: string
-    alt: string
-  }
-  children?: Children
-  url?: string
-  [key: string]: unknown
 }
 
-const serialize = (children?: Children): React.ReactNode[] =>
-  children?.map((node, i) => {
+const serialize = (children?: Children): React.ReactNode[] => {
+
+  return children?.map((node, i) => {
+
     if (Text.isText(node)) {
       let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
 
-      if (node.bold) {
-        text = <strong key={i}>{text}</strong>
-      }
+      switch(node.format) {
+        // Bold
+        case 1:
+          text = <strong key={i}>{text}</strong>
+          break;
+        
+        // Italic
+        case 2:
+          text = <em key={i}>{text}</em>
+          break;
+        
+        // Underline
+        case 8:
+          text = (
+            <span style={{ textDecoration: 'underline' }} key={i}>
+              {text}
+            </span>
+          )
+          break;
 
-      if (node.code) {
-        text = <code key={i}>{text}</code>
-      }
+        // Strikethrough
+        case 8:
+          text = (
+            <span style={{ textDecoration: 'line-through' }} key={i}>
+              {text}
+            </span>
+          )
+          break;
 
-      if (node.italic) {
-        text = <em key={i}>{text}</em>
-      }
-
-      if (node.underline) {
-        text = (
-          <span style={{ textDecoration: 'underline' }} key={i}>
-            {text}
-          </span>
-        )
-      }
-
-      if (node.strikethrough) {
-        text = (
-          <span style={{ textDecoration: 'line-through' }} key={i}>
-            {text}
-          </span>
-        )
+        // Code
+        case 16:
+          text = <code key={i}>{text}</code>
+          break;
       }
 
       return <Fragment key={i}>{text}</Fragment>
@@ -57,7 +64,7 @@ const serialize = (children?: Children): React.ReactNode[] =>
       return null
     }
 
-    switch (node.type) {
+    switch (node.tag) {
       case 'h1':
         return <h1 key={i}>{serialize(node?.children)}</h1>
       case 'h2':
@@ -96,5 +103,7 @@ const serialize = (children?: Children): React.ReactNode[] =>
         return <p key={i}>{serialize(node?.children)}</p>
     }
   }) || []
+
+}
 
 export default serialize

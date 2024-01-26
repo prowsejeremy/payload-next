@@ -35,11 +35,21 @@ export interface User {
 export interface Page {
   id: string;
   title: string;
-  content?:
-    | {
+  content?: {
+    root: {
+      children: {
+        type: string;
+        version: number;
         [k: string]: unknown;
-      }[]
-    | null;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      type: string;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;

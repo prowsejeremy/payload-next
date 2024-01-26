@@ -3,7 +3,7 @@ import path from 'path'
 import { payloadCloud } from '@payloadcms/plugin-cloud'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
-import { slateEditor } from '@payloadcms/richtext-slate'
+import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { buildConfig } from 'payload/config'
 
 // Collections
@@ -31,7 +31,7 @@ export default buildConfig({
     //   }
     // }),
   },
-  editor: slateEditor({}),
+  editor: lexicalEditor({}),
   serverURL: process.env.PAYLOAD_PUBLIC_PAYLOAD_URL,
   
   cors: [
