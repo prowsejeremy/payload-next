@@ -37,7 +37,10 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
 export async function generateStaticParams() {
   try {
-    const pages = await fetchDocs<PageType>('pages')
+    const pages = await fetchDocs<PageType>({
+      collection: 'pages',
+      draft: false
+    })
     return pages?.map(({ slug }) => slug)
   } catch (error) {
     return []
