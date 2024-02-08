@@ -14,9 +14,12 @@ const Pages: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'slug'],
     preview: (doc) => {
+
+      const token = btoa(`${process.env.PAYLOAD_PUBLIC_PREVIEW_SECRET}${process.env.PAYLOAD_PUBLIC_PREVIEW_SALT}`);
+
       return `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/api/preview?url=${encodeURIComponent(
         `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/${doc.slug}`,
-      )}&secret=${process.env.PAYLOAD_PUBLIC_DRAFT_SECRET}`
+      )}&token=${token}`
     },
   },
   versions: {

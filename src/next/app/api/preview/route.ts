@@ -20,7 +20,7 @@ export async function GET(
   // const token = req.cookies.get(payloadToken)?.value
   const { searchParams } = new URL(req.url)
   const url = searchParams.get('url')
-  const secret = searchParams.get('secret')
+  const token = searchParams.get('token')
   // const savedToken = cookies().get('payload-token')
 
   // console.log('savedToken', savedToken)
@@ -48,7 +48,10 @@ export async function GET(
   //   return new Response('You are not allowed to preview this page', { status: 403 })
   // }
 
-  if (secret !== process.env.DRAFT_SECRET) {
+  const decrypted_token = atob(token)
+  const draft_secret = decrypted_token.replace(process.env.PREVIEW_SALT, '')
+
+  if (draft_secret !== process.env.PREVIEW_SECRET) {
     return new Response('Invalid token', { status: 401 })
   }
 

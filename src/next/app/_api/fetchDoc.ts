@@ -37,7 +37,7 @@ export const fetchDoc = async <T>(args: {
     cache: 'no-store',
     next: { tags: [`${collection}_${slug}`] },
     body: JSON.stringify({
-      ...( draft ? {secret: process.env.DRAFT_SECRET} : {}),
+      ...( draft ? {token: process.env.PREVIEW_SECRET} : {}),
       query: queryMap[collection].query,
       variables: {
         slug,
