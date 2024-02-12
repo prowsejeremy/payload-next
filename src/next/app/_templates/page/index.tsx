@@ -3,9 +3,12 @@ import { Nav as NavType, Page as PageType } from "@/payload-types"
 
 // Components
 import NavBar from "@/_components/NavBar"
-import RichText from "@/_components/RichText"
 import PreviewBar from "@/_components/PreviewBar"
 import { Gutter } from "@/_components/Gutter"
+
+// Blocks
+import BlocksLoader from '@/_blocks/BlocksLoader'
+import { RichTextInner } from "@/_blocks/RichText"
 
 const PageTemplate = async ({page}:{page:PageType}) => {
 
@@ -19,7 +22,8 @@ const PageTemplate = async ({page}:{page:PageType}) => {
 
   const {
     title,
-    content
+    content,
+    layout
   } = page
 
   return (
@@ -28,7 +32,8 @@ const PageTemplate = async ({page}:{page:PageType}) => {
       { navData?.items && <NavBar nav={navData} /> }
       <Gutter>
         <h1>{title}</h1>
-        <RichText content={content?.root} />
+        {content && <RichTextInner content={content} />}
+        {layout && <BlocksLoader blocks={layout} />}
       </Gutter>
     </>
   )

@@ -1,3 +1,5 @@
+import { LINK_FIELDS } from './link'
+
 export const PAGES = `
   query Page($draft: Boolean) {
     Pages(limit: 300, draft: $draft)  {
@@ -15,6 +17,24 @@ export const PAGE = `
         slug
         title
         content
+        layout {
+          
+          ...on RichTextBlock {
+            blockType
+            blockName
+            content
+          }
+
+          ...on CallToActionBlock {
+            blockType
+            blockName
+            content
+            link {
+              ${LINK_FIELDS}
+            }
+          }
+
+        }
       }
     }
   }

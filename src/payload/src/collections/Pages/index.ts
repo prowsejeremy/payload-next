@@ -1,8 +1,11 @@
 import { CollectionConfig } from 'payload/types'
-import { lexicalEditor } from '@payloadcms/richtext-lexical'
 
 // Components
-import { slugField } from '../../fields/slug'
+import { slugField } from '../../fields/Slug'
+
+// Blocks
+import CallToAction from '../../blocks/CallToAction'
+import BasicText from '../../blocks/RichText'
 
 // Auth
 import { admins } from '../../access/admins'
@@ -15,7 +18,8 @@ const Pages: CollectionConfig = {
     defaultColumns: ['title', 'slug'],
     preview: (doc) => {
 
-      const token = btoa(`${process.env.PAYLOAD_PUBLIC_PREVIEW_SECRET}${process.env.PAYLOAD_PUBLIC_PREVIEW_SALT}`);
+      const timestamp = new Date().getTime()
+      const token = btoa(`${timestamp}${process.env.PAYLOAD_PUBLIC_PREVIEW_SECRET}${process.env.PAYLOAD_PUBLIC_PREVIEW_SALT}`);
 
       return `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/api/preview?url=${encodeURIComponent(
         `${process.env.PAYLOAD_PUBLIC_NEXT_URL}/${doc.slug}`,
@@ -40,8 +44,16 @@ const Pages: CollectionConfig = {
     {
       type: 'richText',
       name: 'content',
-      label: 'Content',
-      editor: lexicalEditor({})
+      label: 'Content'
+    },
+    {
+      name: 'layout',
+      type: 'blocks',
+      minRows: 1,
+      blocks: [
+        BasicText,
+        CallToAction
+      ]
     },
     slugField()
   ]

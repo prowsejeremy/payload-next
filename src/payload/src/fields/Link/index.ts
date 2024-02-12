@@ -1,6 +1,6 @@
 import type { Field } from 'payload/types'
 
-import deepMerge from '../utilities/deepMerge'
+import deepMerge from '../../utilities/deepMerge'
 
 export const appearanceOptions = {
   primary: {
@@ -79,6 +79,16 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       relationTo: ['pages'],
       required: true,
       maxDepth: 1,
+      // hooks: {
+      //   afterRead: [async ({ value }) => {
+      //     console.log('BEFORE - value', value)
+      //     if (value.value) {
+      //       const page = await payload.findByID({ collection: 'pages', id: value.value })
+      //       value.value = page
+      //     }
+      //     return value
+      //   }],
+      // },
       admin: {
         width: '50%',
         condition: (_, siblingData) => siblingData?.type === 'reference',

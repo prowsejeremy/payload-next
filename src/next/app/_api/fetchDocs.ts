@@ -1,8 +1,5 @@
-// import type { RequestCookie } from 'next/dist/compiled/@edge-runtime/cookies'
-
 import { PAGES } from '../_graphql/pages'
 import { GRAPHQL_API_URL } from './shared'
-// import { payloadToken } from './token'
 
 const queryMap = {
   pages: {
@@ -19,23 +16,16 @@ export const fetchDocs = async <T>(args: {
   const { collection, draft, variables } = args || {}
   if (!queryMap[collection]) throw new Error(`Collection ${collection} not found`)
 
-  // let token: RequestCookie | undefined
-
-  // if (draft) {
-  //   const { cookies } = await import('next/headers')
-  //   token = cookies().get(payloadToken)
-  // }
-
   const docs: T[] = await fetch(`${GRAPHQL_API_URL}/api/graphql`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      // ...(token?.value && draft ? { Authorization: `JWT ${token.value}` } : {}),
+      ...(process.env.PREVIEW_SECRET && draft ? { Authorization: process.env.PREVIEW_SECRET } : {}),
     },
     cache: 'no-store',
     next: { tags: [collection] },
     body: JSON.stringify({
-      ...( draft ? {token: process.env.PREVIEW_SECRET} : {}),
+      // ...( draft ? {token: process.env.PREVIEW_SECRET} : {}),
       query: queryMap[collection].query,
       variables,
     }),

@@ -1,6 +1,6 @@
 import { GlobalConfig } from 'payload/types'
 
-import link from '../fields/link'
+import link from '../fields/Link'
 
 const Nav: GlobalConfig = {
   slug: 'nav',

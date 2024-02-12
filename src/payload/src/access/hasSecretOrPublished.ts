@@ -4,7 +4,7 @@ import { checkRole } from '../collections/Users/checkRole'
 export const hasSecretOrPublished: Access = ({ req }) => {
 
   // If secret provided
-  const token = req?.body?.token
+  const token = req?.headers?.authorization
   if (token == process.env.PREVIEW_SECRET) {
     return true
   }
