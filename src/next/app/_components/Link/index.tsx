@@ -26,12 +26,17 @@ export const CMSLink: React.FC<CMSLinkType> = ({
   className
 }) => {
 
-  const href =
-    type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}/${
-          reference.value.slug
-        }`
-      : url
+  // const href =
+  //   type === 'reference' && typeof reference?.value === 'object' && reference.value.uri
+  //     ? `${reference?.relationTo !== 'pages' ? `/${reference?.relationTo}` : ''}${
+  //         reference.value.uri
+  //       }`
+  //     : url
+
+  const href = (type === 'reference' && typeof reference?.value === 'object' && reference.value.uri) ?
+    reference.value.uri
+  :
+    url
 
   if (!href) return null
 

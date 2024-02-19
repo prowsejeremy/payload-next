@@ -7,6 +7,11 @@ export const NAV_QUERY = `
         link {
           ${LINK_FIELDS}
         }
+        items {
+          link {
+            ${LINK_FIELDS}
+          }
+        }
       }
     }
   }

@@ -8,6 +8,7 @@ export const LINK_FIELDS = `
     value {
       ...on Page {
         slug
+        uri
       }
     }
   }

@@ -15,9 +15,9 @@ export default async function Page({ params }: { params: { slug: string[] } }) {
 
   let pageData: PageType | null = null
 
-  const slug = params.slug.join('/')
+  const slug = `/${params.slug.join('/')}`
   const { isEnabled: isDraftMode } = draftMode()
-  
+
   try {
     pageData = await fetchDoc<PageType>({
       collection: 'pages',
@@ -41,7 +41,7 @@ export async function generateStaticParams() {
       collection: 'pages',
       draft: false
     })
-    return pages?.map(({ slug }) => slug)
+    return pages?.map(({ uri }) => uri)
   } catch (error) {
     return []
   }

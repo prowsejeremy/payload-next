@@ -1,11 +1,14 @@
 import { CollectionConfig } from 'payload/types'
+import { createBreadcrumbsField } from "@payloadcms/plugin-nested-docs/dist/fields/breadcrumbs";
 
 // Components
 import { slugField } from '../../fields/Slug'
+import { uriField } from '../../fields/URI'
 
 // Blocks
 import CallToAction from '../../blocks/CallToAction'
 import BasicText from '../../blocks/RichText'
+import ImageBlock from '../../blocks/ImageBlock'
 
 // Auth
 import { admins } from '../../access/admins'
@@ -42,20 +45,25 @@ const Pages: CollectionConfig = {
       required: true,
     },
     {
-      type: 'richText',
-      name: 'content',
-      label: 'Content'
-    },
-    {
       name: 'layout',
       type: 'blocks',
       minRows: 1,
       blocks: [
         BasicText,
-        CallToAction
+        CallToAction,
+        ImageBlock
       ]
     },
-    slugField()
+    slugField(),
+    uriField(),
+    createBreadcrumbsField(
+      "pages",
+      {
+        admin: {
+          position: "sidebar",
+        },
+      }
+    )
   ]
 }
 

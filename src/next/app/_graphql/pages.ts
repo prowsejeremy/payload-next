@@ -1,3 +1,4 @@
+import { IMAGE_FIELDS } from './image'
 import { LINK_FIELDS } from './link'
 
 export const PAGES = `
@@ -12,17 +13,24 @@ export const PAGES = `
 
 export const PAGE = `
   query Page($slug: String, $draft: Boolean) {
-    Pages(where: { slug: { equals: $slug }}, limit: 1, draft: $draft) {
+    Pages(where: { uri: { equals: $slug }}, limit: 1, draft: $draft) {
       docs {
         slug
         title
-        content
         layout {
-          
+
           ...on RichTextBlock {
             blockType
             blockName
             content
+          }
+
+          ...on ImageBlock {
+            blockType
+            blockName
+            image {
+              ${IMAGE_FIELDS}
+            }
           }
 
           ...on CallToActionBlock {

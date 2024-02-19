@@ -16,6 +16,17 @@ const Nav: GlobalConfig = {
         link({
           appearances: false,
         }),
+        {
+          label: 'Sub-nav Items',
+          name: 'items',
+          type: 'array',
+          required: false,
+          fields: [
+            link({
+              appearances: false,
+            })
+          ]
+        }
       ],
     },
   ],

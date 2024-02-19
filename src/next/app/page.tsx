@@ -13,7 +13,7 @@ export default async function Page() {
 
   let pageData: PageType | null = null
 
-  const slug = 'home'
+  const slug = '/home'
 
   try {
     pageData = await fetchDoc<PageType>({
@@ -24,8 +24,8 @@ export default async function Page() {
     console.log('FETCH error', error)
   }
 
-  if (!pageData && slug === 'home') {
-    pageData = {title: 'Create your first page in the CMS', id: '1', slug: 'home', updatedAt: '', createdAt: ''}
+  if (!pageData && slug === '/home') {
+    pageData = {title: 'Create your first page in the CMS', id: '1', slug: '/home', updatedAt: '', createdAt: ''}
   }
 
   if (!pageData) {

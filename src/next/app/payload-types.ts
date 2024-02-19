@@ -10,6 +10,7 @@ export interface Config {
   collections: {
     users: User;
     pages: Page;
+    media: Media;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
   };
@@ -43,7 +44,6 @@ export interface User {
 export interface Page {
   id: string;
   title: string;
-  layout?: (RichTextBlock | CallToActionBlock)[] | null;
   content?: {
     root: {
       children: {
@@ -59,6 +59,7 @@ export interface Page {
     };
     [k: string]: unknown;
   } | null;
+  layout?: (RichTextBlock | CallToActionBlock | ImageBlock)[] | null;
   slug?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -121,6 +122,58 @@ export interface CallToActionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'CallToAction';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageBlock".
+ */
+export interface ImageBlock {
+  image: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ImageBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: string;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  sizes?: {
+    thumbnail?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    card?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+    tablet?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
+  };
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

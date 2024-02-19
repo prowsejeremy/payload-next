@@ -1,5 +1,6 @@
 import CallToAction from "@/_blocks/CallToAction"
 import RichText from "@/_blocks/RichText"
+import ImageBlock from "@/_blocks/ImageBlock"
 
 const BlocksLoader = ({blocks}) => {
 
@@ -12,6 +13,8 @@ const BlocksLoader = ({blocks}) => {
         return <CallToAction key={key} block={block} />
       case 'RichText':
         return <RichText key={key} block={block} />
+      case 'ImageBlock':
+        return <ImageBlock key={key} block={block} />
     }
   }
 
