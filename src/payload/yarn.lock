@@ -1320,6 +1320,11 @@
   resolved "https://registry.yarnpkg.com/@payloadcms/plugin-nested-docs/-/plugin-nested-docs-1.0.11.tgz#8b99ead0206de676881d3b6ce46edf5c55e67e6b"
   integrity sha512-Bh7CWNDleazNHeRZSNKO67lRnf24yHur69qP/tbbQNM2/RyanPFR2+fWOk/WO0K0/3k7IKzuMEF8n4L3eKek0w==
 
+"@payloadcms/plugin-seo@^2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@payloadcms/plugin-seo/-/plugin-seo-2.2.1.tgz#12b65af75d140403546b034c8738fc022c5ec0a5"
+  integrity sha512-EqC+98oAwH0qlqVM/X7/zvKKAvWuHAGj8zzcwNGJN/Q7tIh9NB5isKSxeIXI8e9QxuRzCnR2MVBi0Q/I0SKZTQ==
+
 "@payloadcms/richtext-lexical@^0.6.1":
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/@payloadcms/richtext-lexical/-/richtext-lexical-0.6.1.tgz#88bc46d8c8dc67e9cd179147d755dd653add5383"

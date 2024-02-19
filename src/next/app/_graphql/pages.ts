@@ -1,5 +1,4 @@
-import { IMAGE_FIELDS } from './image'
-import { LINK_FIELDS } from './link'
+import { IMAGE_FIELDS, LINK_FIELDS, SEO_FIELDS } from './fields'
 
 export const PAGES = `
   query Page($draft: Boolean) {
@@ -15,6 +14,8 @@ export const PAGE = `
   query Page($slug: String, $draft: Boolean) {
     Pages(where: { uri: { equals: $slug }}, limit: 1, draft: $draft) {
       docs {
+        ${SEO_FIELDS}
+
         slug
         title
         layout {

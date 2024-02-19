@@ -2,6 +2,7 @@ import path from 'path'
 
 // Payload imports
 import nestedDocs from '@payloadcms/plugin-nested-docs'
+import seoPlugin from '@payloadcms/plugin-seo';
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -47,6 +48,7 @@ export default buildConfig({
 
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
+    declare: false
   },
   graphQL: {
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
@@ -57,6 +59,11 @@ export default buildConfig({
       generateLabel: (_, doc:{title: string}) => doc.title,
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
+    seoPlugin({
+      collections: ['pages'],
+      uploadsCollection: 'media',
+      generateTitle: ({ doc }) => `Next/Payload — ${doc.title.value}`
+    })
   ],
 
   db: mongooseAdapter({

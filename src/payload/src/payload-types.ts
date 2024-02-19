@@ -56,6 +56,11 @@ export interface Page {
       }[]
     | null;
   parent?: (string | null) | Page;
+  meta?: {
+    title?: string | null;
+    description?: string | null;
+    image?: string | Media | null;
+  };
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -240,9 +245,4 @@ export interface Nav {
   }[];
   updatedAt?: string | null;
   createdAt?: string | null;
-}
-
-
-declare module 'payload' {
-  export interface GeneratedTypes extends Config {}
 }

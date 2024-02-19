@@ -1,4 +1,4 @@
-import { LINK_FIELDS } from './link'
+import { LINK_FIELDS } from './fields'
 
 export const NAV_QUERY = `
   query Nav {

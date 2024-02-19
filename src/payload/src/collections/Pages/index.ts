@@ -61,6 +61,7 @@ const Pages: CollectionConfig = {
       {
         admin: {
           position: "sidebar",
+          hidden: true
         },
       }
     )
