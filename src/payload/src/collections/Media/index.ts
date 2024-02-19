@@ -12,6 +12,7 @@ const Media: CollectionConfig = {
   upload: {
     staticURL: '/media',
     staticDir: 'media',
+    disableLocalStorage: true,
     imageSizes: [
       {
         name: 'thumbnail',
@@ -32,7 +33,8 @@ const Media: CollectionConfig = {
         position: 'centre',
       },
     ],
-    adminThumbnail: 'thumbnail',
+    // adminThumbnail: 'thumbnail',
+    adminThumbnail: ({ doc }) => `${process.env.S3_MEDIA_URL}/${doc.filename}`,
     mimeTypes: ['image/*'],
   },
   fields: [

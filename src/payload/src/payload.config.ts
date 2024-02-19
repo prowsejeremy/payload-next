@@ -3,6 +3,9 @@ import path from 'path'
 // Payload imports
 import nestedDocs from '@payloadcms/plugin-nested-docs'
 import seoPlugin from '@payloadcms/plugin-seo';
+import { cloudStorage } from "@payloadcms/plugin-cloud-storage";
+import { s3Adapter } from "@payloadcms/plugin-cloud-storage/s3";
+
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { webpackBundler } from '@payloadcms/bundler-webpack'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
@@ -63,7 +66,26 @@ export default buildConfig({
       collections: ['pages'],
       uploadsCollection: 'media',
       generateTitle: ({ doc }) => `Next/Payload — ${doc.title.value}`
-    })
+    }),
+    cloudStorage({
+      collections: {
+        // Enable cloud storage for Media collection
+        media: {
+          // Create the S3 adapter
+          adapter: s3Adapter({
+            config: {
+              endpoint: process.env.S3_ENDPOINT,
+              region: process.env.S3_REGION,
+              credentials: {
+                accessKeyId: process.env.S3_ACCESS_KEY_ID,
+                secretAccessKey: process.env.S3_SECRET_ACCESS_KEY,
+              },
+            },
+            bucket: process.env.S3_BUCKET,
+          }),
+        },
+      },
+    }),
   ],
 
   db: mongooseAdapter({
