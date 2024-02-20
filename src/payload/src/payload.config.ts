@@ -19,6 +19,8 @@ import Media from './collections/Media'
 // Globals
 import Nav from './globals/Nav'
 
+type DocType = { doc: {title: string}}
+
 export default buildConfig({
   globals: [Nav],
   collections: [Users, Pages, Media],
@@ -59,13 +61,13 @@ export default buildConfig({
   plugins: [
     nestedDocs({
       collections: ['pages'],
-      generateLabel: (_, doc:{title: string}) => doc.title,
+      generateLabel: <DocType>(_, doc) => doc.title,
       generateURL: (docs) => docs.reduce((url, doc) => `${url}/${doc.slug}`, ''),
     }),
     seoPlugin({
       collections: ['pages'],
       uploadsCollection: 'media',
-      generateTitle: ({ doc }) => `Next/Payload — ${doc.title.value}`
+      generateTitle: <DocType>({ doc }) => `Next/Payload — ${doc.title.value}`
     }),
     cloudStorage({
       collections: {

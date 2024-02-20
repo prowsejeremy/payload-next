@@ -16,6 +16,8 @@ services:
 
   payload:
     container_name: payload
+    # Used for Apple M(x) devices as there are currently issues.
+    # platform: linux/amd64
     depends_on:
       - mongo
     build:
@@ -30,6 +32,8 @@ services:
 
   next:
     container_name: next
+    # Used for Apple Mx devices as there are currently issues.
+    # platform: linux/amd64
     build:
       context: ../src/next
       dockerfile: ../../docker/next.Dockerfile

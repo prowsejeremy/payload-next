@@ -14,7 +14,6 @@ const slugBlacklist = [
   '/favicon.ico'
 ]
 
-export const dynamic = 'force-dynamic'
 export const revalidate = 300;
 
 export async function generateMetadata(
@@ -25,8 +24,6 @@ export async function generateMetadata(
   const slug = params && params?.slug ? `/${params.slug.join('/')}` : `/home`
 
   if (slugBlacklist.includes(slug)) return
-
-  console.log('slug', slug)
 
   // fetch data
   try {
@@ -42,12 +39,12 @@ export async function generateMetadata(
   if (!pageData?.meta) return
 
   const { meta } = pageData
-
+  const image = typeof meta?.image == 'object' ? meta?.image?.url : meta?.image
   return {
     title: meta?.title,
     description: meta?.description,
     openGraph: {
-      images: [meta.image?.url],
+      images: [image],
     },
   }
 }

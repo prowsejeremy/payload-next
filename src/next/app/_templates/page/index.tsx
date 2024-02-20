@@ -6,14 +6,13 @@ import NavBar from "@/_components/NavBar"
 import PreviewBar from "@/_components/PreviewBar"
 import { Gutter } from "@/_components/Gutter"
 
-// Blocks
+// Blocks Loader
 import BlocksLoader from '@/_blocks/BlocksLoader'
-import { RichTextInner } from "@/_blocks/RichText"
 
 const PageTemplate = async ({page}:{page:PageType}) => {
 
   let navData: NavType | null = null
-  
+
   try {
     navData = await fetchNav()
   } catch (error) {
@@ -22,7 +21,6 @@ const PageTemplate = async ({page}:{page:PageType}) => {
 
   const {
     title,
-    content,
     layout
   } = page
 
@@ -32,7 +30,6 @@ const PageTemplate = async ({page}:{page:PageType}) => {
       { navData?.items && <NavBar nav={navData} /> }
       <Gutter>
         <h1>{title}</h1>
-        {content && <RichTextInner content={content} />}
         {layout && <BlocksLoader blocks={layout} />}
       </Gutter>
     </>

@@ -5,8 +5,6 @@ import deepMerge from '../../utilities/deepMerge'
 export const generateURI = (breadcrumbs: Array<{ url: string }>): string | undefined => {
   if (Array.isArray(breadcrumbs)) {
     const finalBreadcrumb = breadcrumbs.pop()
-
-    console.log('finalBreadcrumb', finalBreadcrumb)
     return finalBreadcrumb.url
   }
 

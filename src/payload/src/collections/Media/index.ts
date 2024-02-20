@@ -5,13 +5,14 @@ const Media: CollectionConfig = {
   slug: 'media',
   access: {
     read: () => true,
-    update: admins,
-    create: admins,
-    delete: admins,
+    // update: admins,
+    // create: admins,
+    // delete: admins,
   },
   upload: {
-    staticURL: '/media',
-    staticDir: 'media',
+    staticURL: process.env.PAYLOAD_PUBLIC_S3_MEDIA_URL,
+    // staticURL: '/media',
+    // staticDir: 'media',
     disableLocalStorage: true,
     imageSizes: [
       {
@@ -34,7 +35,10 @@ const Media: CollectionConfig = {
       },
     ],
     // adminThumbnail: 'thumbnail',
-    adminThumbnail: ({ doc }) => `${process.env.S3_MEDIA_URL}/${doc.filename}`,
+    adminThumbnail: ({ doc }) => {
+      console.log(process.env.PAYLOAD_PUBLIC_S3_MEDIA_URL);
+      return `${process.env.PAYLOAD_PUBLIC_S3_MEDIA_URL}/${doc.filename}`
+    },
     mimeTypes: ['image/*'],
   },
   fields: [

@@ -9,6 +9,8 @@ const ImageBlock: React.FC<{ className?: string; block: any }> = ({ className, b
     blockName=''
   } = block
 
+  if (!image) return null
+
   let srcset = ""
   let sizes = ""
 

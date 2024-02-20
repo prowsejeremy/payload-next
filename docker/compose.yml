@@ -17,6 +17,7 @@ services:
   payload:
     container_name: payload
     image: node:20-alpine
+    platform: linux/amd64
     volumes:
       - ../src/payload:/home/node/app/payload
     working_dir: /home/node/app/payload
@@ -31,6 +32,7 @@ services:
   next:
     container_name: next
     image: node:20-alpine
+    platform: linux/amd64
     volumes:
       - ../src/next:/home/node/app/next
     working_dir: /home/node/app/next

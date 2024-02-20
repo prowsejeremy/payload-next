@@ -6,7 +6,7 @@ node_modules
 docker/nginx/certs/
 
 # Upload folders
-/media
+src/paylaod/src/media/
 
 # Environment var files
 .env

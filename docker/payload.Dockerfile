@@ -25,6 +25,6 @@ COPY --from=builder /home/node/app/payload/build ./build
 EXPOSE 5000
 
 # If migrations are needed
-RUN yarn migrate
+# RUN yarn migrate
 
 CMD ["node", "dist/server.js"]
